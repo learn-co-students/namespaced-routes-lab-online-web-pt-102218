@@ -1,14 +1,14 @@
 class SongsController < ApplicationController
-  def index
+   def index
     if params[:artist_id]
       @artist = Artist.find_by(id: params[:artist_id])
       if @artist.nil?
         redirect_to artists_path, alert: "Artist not found"
       else
-        @songs = @artist.songs
+        @songs = @artist.songs.order("title " + preference.song_sort_order)
       end
     else
-      @songs = Song.all
+      @songs = Song.all.order("title " + preference.song_sort_order)
     end
   end
 
@@ -25,7 +25,11 @@ class SongsController < ApplicationController
   end
 
   def new
-    @song = Song.new
+    if preference.allow_create_songs
+      @song = Song.new
+    else
+      redirect_to songs_path
+    end
   end
 
   def create
