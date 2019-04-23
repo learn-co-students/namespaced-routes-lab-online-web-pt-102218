@@ -1,3 +1,4 @@
+require 'pry'
 class SongsController < ApplicationController
   def index
     if params[:artist_id]
@@ -25,7 +26,11 @@ class SongsController < ApplicationController
   end
 
   def new
-    @song = Song.new
+    if params[:permitted] == true 
+      @song = Song.new
+    else 
+      redirect_to songs_path
+    end
   end
 
   def create
