@@ -1,3 +1,4 @@
+require 'pry'
 class SongsController < ApplicationController
   def index
     if params[:artist_id]
@@ -13,19 +14,24 @@ class SongsController < ApplicationController
   end
 
   def show
+   
     if params[:artist_id]
       @artist = Artist.find_by(id: params[:artist_id])
       @song = @artist.songs.find_by(id: params[:id])
       if @song.nil?
-        redirect_to artist_songs_path(@artist), alert: "Song not found"
+        redirect_to (artist_songs_path), alert: "Song not found" 
       end
-    else
+  else
       @song = Song.find(params[:id])
     end
   end
 
   def new
-    @song = Song.new
+    if params[:permitted] == true 
+      @song = Song.new
+    else 
+      redirect_to songs_path
+    end
   end
 
   def create
