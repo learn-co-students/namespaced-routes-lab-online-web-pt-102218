@@ -11,6 +11,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bootsnap'
 gem 'listen'
 
+#require 'shoulda'
+
 group :development, :test do
   gem 'pry'
   gem 'capybara'
