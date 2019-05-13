@@ -6,9 +6,20 @@ class SongsController < ApplicationController
         redirect_to artists_path, alert: "Artist not found"
       else
         @songs = @artist.songs
+        #binding.pry
+        #if Preference.song_sort_order == "ASC"
+          #@songs = @artist.songs.order("name ASC")
+        #elsif Preference.song_sort_order == "DESC"
+          #@songs = @artist.songs.order("name DESC")
+        #end
       end
     else
       @songs = Song.all
+      #if Preference.song_sort_order == "ASC"
+        #@songs = Song.order("name ASC")
+      #elsif Preference.song_sort_order == "DESC"
+        #@songs = Song.order("name DESC")
+      #end
     end
   end
 
